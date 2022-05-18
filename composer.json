@@ -1,0 +1,15 @@
+{
+    "name": "model/csrf",
+    "description": "CSRF protection toolset",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Domenico Giambra",
+            "email": "zorinik@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Model\\CSRF\\": "src/"}
+    },
+    "require": {}
+}
