@@ -8,6 +8,11 @@ class CSRF
 			throw new \Exception('Bad token', 401);
 	}
 
+	public static function render(string $context, string $key = 'c_id'): void
+	{
+		echo '<input type="hidden" name="' . $key . '" value="' . self::getToken($context) . '" />';
+	}
+
 	public static function check(string $context, string $token): bool
 	{
 		return ($token === self::getToken($context));
