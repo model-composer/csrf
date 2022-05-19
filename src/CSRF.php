@@ -2,13 +2,16 @@
 
 class CSRF
 {
-	public static function checkPost(string $context, string $key = 'c_id'): void
+	public static function checkPayload(string $context, ?array $payload = null, string $key = 'cp_token'): void
 	{
-		if (empty($_POST[$key]) or !self::check($context, $_POST[$key]))
+		if ($payload === null)
+			$payload = $_POST;
+
+		if (empty($payload[$key]) or !self::check($context, $payload[$key]))
 			throw new \Exception('Bad token', 401);
 	}
 
-	public static function render(string $context, string $key = 'c_id'): void
+	public static function render(string $context, string $key = 'cp_token'): void
 	{
 		echo '<input type="hidden" name="' . $key . '" value="' . self::getToken($context) . '" />';
 	}
