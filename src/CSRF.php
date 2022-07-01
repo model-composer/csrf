@@ -5,7 +5,7 @@ class CSRF
 	public static function checkPayload(string $context, ?array $payload = null, string $key = 'cp_token'): void
 	{
 		if ($payload === null)
-			$payload = $_POST;
+			$payload = \Model\Core\Model::getInput();
 
 		if (empty($payload[$key]) or !self::check($context, $payload[$key]))
 			throw new \Exception('Bad token', 401);
