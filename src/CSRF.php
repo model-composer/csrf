@@ -1,5 +1,8 @@
 <?php namespace Model\CSRF;
 
+use Model\Session\Session;
+use Model\Session\SessionInterface;
+
 class CSRF
 {
 	public static function checkPayload(string $context, ?array $payload = null, string $key = 'cp_token'): void
@@ -26,10 +29,12 @@ class CSRF
 		return sha1($context . '-' . self::getMainToken());
 	}
 
-	private static function getMainToken(): string
+	private static function getMainToken(?SessionInterface $session = null): string
 	{
-		if (!isset($_SESSION['csrf-main-token']))
-			$_SESSION['csrf-main-token'] = bin2hex(random_bytes(24));
-		return $_SESSION['csrf-main-token'];
+		$session ??= new Session();
+		if (!$session->has('csrf-main-token'))
+			$session->set('csrf-main-token', bin2hex(random_bytes(24)));
+
+		return $session->get('csrf-main-token');
 	}
 }

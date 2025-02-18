@@ -11,5 +11,7 @@
     "autoload": {
         "psr-4": {"Model\\CSRF\\": "src/"}
     },
-    "require": {}
+    "require": {
+        "model/session": "^0.3.0"
+    }
 }
